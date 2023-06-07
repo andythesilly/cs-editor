@@ -11,6 +11,8 @@ namespace Editor
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow window = new MainWindow();
+            Editor.MainWindow.SavedString = string.Empty;
+
             if (e.Args.Length > 0)
             {
                 window.textEditor.Text = File.ReadAllText(e.Args[0].ToString());
@@ -20,6 +22,7 @@ namespace Editor
                     );
                 Editor.MainWindow.FileLocation = e.Args[0].ToString();
             }
+
             window.textEditor.TextArea.TextView.Margin = new Thickness(5, 0, 0, 0);
             window.Show();
         }

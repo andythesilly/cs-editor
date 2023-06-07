@@ -17,23 +17,24 @@ namespace Editor
         public MainWindow()
         {
             InitializeComponent();
-            textEditor.TextArea.TextView.Margin = new Thickness(5, 0, 0, 0);
         }
 
         private void setSyntax()
         {
             textEditor.SyntaxHighlighting =
-                    ICSharpCode.AvalonEdit.Highlighting.HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(FileLocation));
+                ICSharpCode.AvalonEdit.Highlighting.HighlightingManager.Instance.GetDefinitionByExtension(
+                    Path.GetExtension(FileLocation)
+                );
         }
 
-        private void NewCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private void NewCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             FileLocation = null;
             textEditor.Text = string.Empty;
             SavedString = string.Empty;
         }
 
-        private async void OpenCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private async void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -46,7 +47,7 @@ namespace Editor
             }
         }
 
-        private void SaveCommandBinding_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             if (FileLocation != null)
             {
@@ -54,13 +55,16 @@ namespace Editor
             }
         }
 
-        private async void SaveCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private async void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            await File.WriteAllTextAsync(FileLocation, textEditor.Text);
-            SavedString = textEditor.Text;
+            if (FileLocation != null)
+            {
+                await File.WriteAllTextAsync(FileLocation, textEditor.Text);
+                SavedString = textEditor.Text;
+            }
         }
 
-        private async void SaveAsCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private async void SaveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.SaveFileDialog();
 
@@ -86,17 +90,11 @@ namespace Editor
 
     public static class CustomCommands
     {
-        public static readonly RoutedUICommand Exit = new RoutedUICommand
-            (
-                "Exit",
-                "Exit",
-                typeof(CustomCommands),
-                new InputGestureCollection()
-                {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-                }
-            );
-
-        //Define more commands here, just like the one above
+        public static readonly RoutedUICommand Exit = new RoutedUICommand(
+            "Exit Command",
+            "Exit",
+            typeof(CustomCommands),
+            new InputGestureCollection() { new KeyGesture(Key.F4, ModifierKeys.Alt) }
+        );
     }
 }

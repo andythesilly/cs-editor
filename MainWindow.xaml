@@ -1,46 +1,72 @@
-﻿<ui:UiWindow x:Class="Editor.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Editor"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        mc:Ignorable="d"
-        Title="Редактор кода" Height="800" Width="1200">
+﻿<ui:UiWindow
+    x:Class="Editor.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Editor"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Редактор кода"
+    Width="1200"
+    Height="800"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
     <Window.CommandBindings>
-        <CommandBinding Command="New" Executed="NewCommandBinding_Executed"/>
+        <CommandBinding Command="New" Executed="NewCommandBinding_Executed" />
         <CommandBinding Command="Open" Executed="OpenCommandBinding_Executed" />
-        <CommandBinding Command="Save" CanExecute="SaveCommandBinding_CanExecute" Executed="SaveCommandBinding_Executed" />
+        <CommandBinding
+            CanExecute="SaveCommandBinding_CanExecute"
+            Command="Save"
+            Executed="SaveCommandBinding_Executed" />
         <CommandBinding Command="SaveAs" Executed="SaveAsCommandBinding_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="ExitCommandBinding_Executed" />
     </Window.CommandBindings>
     <Window.InputBindings>
-        <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="SaveAs" />
+        <KeyBinding
+            Key="S"
+            Command="SaveAs"
+            Modifiers="Ctrl+Shift" />
     </Window.InputBindings>
 
     <DockPanel>
         <ToolBarPanel DockPanel.Dock="Top">
             <Menu DockPanel.Dock="Top">
                 <ui:MenuItem Header="_Файл">
-                    <ui:MenuItem Header="_Создать" Command="New" InputGestureText="Ctrl+N"/>
-                    <ui:MenuItem Header="_Открыть" Command="Open" InputGestureText="Ctrl+O"/>
-                    <Separator/>
-                    <ui:MenuItem Header="_Сохранить" Command="Save" InputGestureText="Ctrl+S"/>
-                    <ui:MenuItem Header="_Сохранить как..." Command="SaveAs" InputGestureText="Ctrl+Shift+S"/>
-                    <Separator/>
-                    <ui:MenuItem Header="_Выход" Command="local:CustomCommands.Exit" InputGestureText="Alt+F4"/>
+                    <ui:MenuItem
+                        Command="New"
+                        Header="_Создать"
+                        InputGestureText="Ctrl+N" />
+                    <ui:MenuItem
+                        Command="Open"
+                        Header="_Открыть"
+                        InputGestureText="Ctrl+O" />
+                    <Separator />
+                    <ui:MenuItem
+                        Command="Save"
+                        Header="_Сохранить"
+                        InputGestureText="Ctrl+S" />
+                    <ui:MenuItem
+                        Command="SaveAs"
+                        Header="_Сохранить как..."
+                        InputGestureText="Ctrl+Shift+S" />
+                    <Separator />
+                    <ui:MenuItem
+                        Command="local:CustomCommands.Exit"
+                        Header="_Выход"
+                        InputGestureText="Alt+F4" />
                 </ui:MenuItem>
                 <ui:MenuItem Header="_Вид">
-                    <ui:MenuItem Header="_Перенос слов" Command="" IsCheckable="True" InputGestureText="Ctrl+W"/>
+                    <ui:MenuItem Click="MenuItem_Click" Header="_Настроить" />
                 </ui:MenuItem>
             </Menu>
             <Separator />
         </ToolBarPanel>
+
         <avalonEdit:TextEditor
-    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-    Name="textEditor"
-    FontFamily="Consolas"
-    ShowLineNumbers="True"
-    FontSize="10pt" Padding="10,10,10,10"/>
+            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+            Name="textEditor"
+            Padding="10,10,10,10"
+            ShowLineNumbers="True" />
     </DockPanel>
 </ui:UiWindow>

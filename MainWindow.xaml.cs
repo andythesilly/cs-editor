@@ -107,6 +107,12 @@ namespace Editor
                 App.Current.Shutdown();
             }
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow window = new SettingsWindow();
+            window.Show();
+        }
     }
 
     public static class CustomCommands

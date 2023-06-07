@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Editor"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200">
+        Title="Редактор кода" Height="800" Width="1200">
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="NewCommandBinding_Executed"/>
         <CommandBinding Command="Open" Executed="OpenCommandBinding_Executed" />

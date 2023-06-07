@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Wpf.Ui.Controls;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Editor
 {
@@ -81,20 +81,42 @@ namespace Editor
         {
             if (textEditor.Text != SavedString)
             {
-                MessageBox.Show("Вы не сохранились");
-            }
+                var messageBox = new Wpf.Ui.Controls.MessageBox
+                {
+                    Title = "Вы не сохранились!",
+                    Content = new TextBlock { Text = "Выйти всё равно?", },
+                    ResizeMode = ResizeMode.NoResize,
+                    ShowInTaskbar = false,
+                    ButtonLeftName = "Да, выйти",
+                    ButtonRightName = "Нет"
+                };
 
-            Application.Current.Shutdown();
+                messageBox.ButtonLeftClick += (s, e) =>
+                {
+                    App.Current.Shutdown();
+                };
+                messageBox.ButtonRightClick += (s, e) =>
+                {
+                    messageBox.Close();
+                };
+
+                messageBox.Show();
+            }
+            else
+            {
+                App.Current.Shutdown();
+            }
         }
     }
 
     public static class CustomCommands
     {
-        public static readonly RoutedUICommand Exit = new RoutedUICommand(
-            "Exit Command",
-            "Exit",
-            typeof(CustomCommands),
-            new InputGestureCollection() { new KeyGesture(Key.F4, ModifierKeys.Alt) }
-        );
+        public static readonly RoutedUICommand Exit =
+            new(
+                "Exit Command",
+                "Exit",
+                typeof(CustomCommands),
+                new InputGestureCollection() { new KeyGesture(Key.F4, ModifierKeys.Alt) }
+            );
     }
 }

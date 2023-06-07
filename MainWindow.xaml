@@ -30,6 +30,9 @@
                     <Separator/>
                     <ui:MenuItem Header="_Выход" Command="local:CustomCommands.Exit" InputGestureText="Alt+F4"/>
                 </ui:MenuItem>
+                <ui:MenuItem Header="_Вид">
+                    <ui:MenuItem Header="_Перенос слов" Command="" IsCheckable="True" InputGestureText="Ctrl+W"/>
+                </ui:MenuItem>
             </Menu>
             <Separator />
         </ToolBarPanel>

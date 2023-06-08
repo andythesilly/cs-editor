@@ -34,7 +34,7 @@ namespace Editor
             SavedString = string.Empty;
         }
 
-        private async void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // открытие файла
+        private void OpenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // открытие файла
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -42,7 +42,7 @@ namespace Editor
             {
                 FileLocation = dialog.FileName;
                 setSyntax();
-                textEditor.Text = await File.ReadAllTextAsync(dialog.FileName);
+                textEditor.Load(dialog.FileName);
                 SavedString = textEditor.Text;
             }
         }

@@ -1,6 +1,7 @@
 using System.Configuration;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Editor
 {
@@ -14,39 +15,39 @@ namespace Editor
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow window = new MainWindow(); // создаем окно
-            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); // открываем конфиг
+            MainWindow window = new MainWindow(); // СЃРѕР·РґР°РµРј РѕРєРЅРѕ
+            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); // РѕС‚РєСЂС‹РІР°РµРј РєРѕРЅС„РёРі
 
-            /* устанавливаем первоначальные значения для редактора  */
+            /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ СЂРµРґР°РєС‚РѕСЂР°  */
             Editor.MainWindow.FileLocation = null;
             Editor.MainWindow.SavedString = string.Empty;
 
-            if (Config.Sections["UISettings"] is null) // проверяем существуют ли уже сохраненные настройки
+            if (Config.Sections["UISettings"] is null) // РїСЂРѕРІРµСЂСЏРµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‚ Р»Рё СѓР¶Рµ СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
             {
                 Config.Sections.Add("UISettings", new UISettings());
                 Config.Save();
             }
 
-            UiSettings = (UISettings)Config.GetSection("UISettings"); // получаем настройки
+            UiSettings = (UISettings)Config.GetSection("UISettings"); // РїРѕР»СѓС‡Р°РµРј РЅР°СЃС‚СЂРѕР№РєРё
 
-            if (e.Args.Length > 0) // настраиваем приложение при открытии файлов через "открыть с помощью"
+            if (e.Args.Length > 0) // РЅР°СЃС‚СЂР°РёРІР°РµРј РїСЂРёР»РѕР¶РµРЅРёРµ РїСЂРё РѕС‚РєСЂС‹С‚РёРё С„Р°Р№Р»РѕРІ С‡РµСЂРµР· "РѕС‚РєСЂС‹С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ"
             {
                 Editor.MainWindow.FileLocation = e.Args[0].ToString();
-                window.textEditor.Text = File.ReadAllText(Editor.MainWindow.FileLocation);
                 window.textEditor.SyntaxHighlighting =
                     ICSharpCode.AvalonEdit.Highlighting.HighlightingManager.Instance.GetDefinitionByExtension(
                         Path.GetExtension(Editor.MainWindow.FileLocation)
                     );
+                window.textEditor.Load(Editor.MainWindow.FileLocation);
                 Editor.MainWindow.SavedString = window.textEditor.Text;
             }
 
-            /* настраиваем внешний вид редактора */
+            /* РЅР°СЃС‚СЂР°РёРІР°РµРј РІРЅРµС€РЅРёР№ РІРёРґ СЂРµРґР°РєС‚РѕСЂР° */
             window.textEditor.FontSize = UiSettings.FontSize;
-            window.textEditor.FontFamily = new System.Windows.Media.FontFamily( UiSettings.FontFamily );
+            window.textEditor.FontFamily = new FontFamily( UiSettings.FontFamily );
             window.textEditor.WordWrap = UiSettings.Wrap;
             window.textEditor.TextArea.TextView.Margin = new Thickness(5, 0, 0, 0);
 
-            window.Show(); // показываем окно
+            window.Show(); // РїРѕРєР°Р·С‹РІР°РµРј РѕРєРЅРѕ
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Editor
 {
     public class UISettings : ConfigurationSection
     {
-        [ConfigurationProperty("fontSize", DefaultValue = 10)]
+        [ConfigurationProperty("fontSize", DefaultValue = 14)]
         public int FontSize
         {
             get { return (int)this["fontSize"]; }

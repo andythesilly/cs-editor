@@ -2,7 +2,7 @@
 
 namespace Editor
 {
-    class UISettings : ConfigurationSection
+    public class UISettings : ConfigurationSection
     {
         [ConfigurationProperty("fontSize", DefaultValue = 10)]
         public int FontSize

@@ -10,22 +10,12 @@ namespace Editor
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        Configuration configuration = ConfigurationManager.OpenExeConfiguration(
-            ConfigurationUserLevel.None
-        );
-
         public SettingsWindow()
         {
             InitializeComponent();
             FillFontComboBox(FontFamilyComboBox);
 
-            if (configuration.Sections["UISettings"] is null)
-            {
-                configuration.Sections.Add("UISettings", new UISettings());
-            }
-
-            var UISettingsSection = configuration.GetSection("UISettings");
-            this.DataContext = UISettingsSection;
+            this.DataContext = App.UiSettings;
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -46,12 +36,14 @@ namespace Editor
                 comboBoxFonts.Items.Add(fontFamily.Source);
             }
 
-            comboBoxFonts.SelectedItem = ((MainWindow)App.Current.MainWindow).textEditor.FontFamily;
+            comboBoxFonts.SelectedItem = ((MainWindow)Application.Current.MainWindow).textEditor.FontFamily;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            configuration.Save();
+            ((MainWindow)App.Current.MainWindow).textEditor.FontSize = App.UiSettings.FontSize;
+            ((MainWindow)App.Current.MainWindow).textEditor.FontFamily = new FontFamily(App.UiSettings.FontFamily);
+            App.Config.Save();
         }
     }
 }

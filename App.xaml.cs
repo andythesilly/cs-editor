@@ -14,19 +14,22 @@ namespace Editor
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow window = new MainWindow();
-            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            MainWindow window = new MainWindow(); // создаем окно
+            Config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); // открываем конфиг
+
+            /* устанавливаем первоначальные значения для редактора  */
+            Editor.MainWindow.FileLocation = null;
             Editor.MainWindow.SavedString = string.Empty;
 
-            if (Config.Sections["UISettings"] is null)
+            if (Config.Sections["UISettings"] is null) // проверяем существуют ли уже сохраненные настройки
             {
                 Config.Sections.Add("UISettings", new UISettings());
                 Config.Save();
             }
 
-            UiSettings = (UISettings)Config.GetSection("UISettings");
+            UiSettings = (UISettings)Config.GetSection("UISettings"); // получаем настройки
 
-            if (e.Args.Length > 0)
+            if (e.Args.Length > 0) // настраиваем приложение при открытии файлов через "открыть с помощью"
             {
                 Editor.MainWindow.FileLocation = e.Args[0].ToString();
                 window.textEditor.Text = File.ReadAllText(Editor.MainWindow.FileLocation);
@@ -37,10 +40,13 @@ namespace Editor
                 Editor.MainWindow.SavedString = window.textEditor.Text;
             }
 
+            /* настраиваем внешний вид редактора */
             window.textEditor.FontSize = UiSettings.FontSize;
             window.textEditor.FontFamily = new System.Windows.Media.FontFamily( UiSettings.FontFamily );
+            window.textEditor.WordWrap = UiSettings.Wrap;
             window.textEditor.TextArea.TextView.Margin = new Thickness(5, 0, 0, 0);
-            window.Show();
+
+            window.Show(); // показываем окно
         }
     }
 }

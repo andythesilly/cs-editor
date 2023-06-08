@@ -17,5 +17,12 @@ namespace Editor
             get { return (string)this["fontFamily"]; }
             set { this["fontFamily"] = value; }
         }
+
+        [ConfigurationProperty("wrap", DefaultValue = false)]
+        public bool Wrap
+        {
+            get { return (bool)this["wrap"]; }
+            set { this["wrap"] = value; }
+        }
     }
 }

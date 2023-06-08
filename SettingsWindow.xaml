@@ -23,6 +23,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="1"
@@ -50,8 +51,20 @@
             Grid.Column="1"
             Width="180"
             SelectedItem="{Binding FontFamily}" />
+        <TextBlock 
+            Grid.Row="3" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            FontSize="18" 
+            FontWeight="SemiBold"><Run Text="Перенос слов" /></TextBlock>
+        <ui:ToggleSwitch 
+            IsChecked="{Binding Wrap}"
+            Grid.Row="3" 
+            Grid.Column="2" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" />
         <ui:Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"

@@ -47,7 +47,7 @@ namespace Editor
             }
         }
 
-        private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e) 
+        private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             if (FileLocation != null)
             {
@@ -55,16 +55,16 @@ namespace Editor
             }
         }
 
-        private async void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // сохранение текущего файла
+        private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // сохранение текущего файла
         {
             if (FileLocation != null)
             {
-                await File.WriteAllTextAsync(FileLocation, textEditor.Text);
+                textEditor.Save(FileLocation);
                 SavedString = textEditor.Text;
             }
         }
 
-        private async void SaveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // сохранить файл как
+        private void SaveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // сохранить файл как
         {
             var dialog = new Microsoft.Win32.SaveFileDialog();
 
@@ -72,14 +72,14 @@ namespace Editor
             {
                 FileLocation = dialog.FileName;
                 setSyntax();
-                await File.WriteAllTextAsync(FileLocation, textEditor.Text);
+                textEditor.Save(FileLocation);
                 SavedString = textEditor.Text;
             }
         }
 
         private void ExitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) // обработка выхода из приложения
         {
-            if (textEditor.Text != SavedString) 
+            if (textEditor.Text != SavedString)
             {
                 var messageBox = new Wpf.Ui.Controls.MessageBox
                 {
@@ -108,7 +108,48 @@ namespace Editor
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void UndoCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (textEditor.CanUndo)
+            {
+                e.CanExecute = true;
+            }
+        }
+
+        private void UndoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            textEditor.Undo();
+        }
+
+        private void RedoCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (textEditor.CanRedo)
+            {
+                e.CanExecute = true;
+            }
+        }
+
+        private void RedoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            textEditor.Redo();
+        }
+
+        private void CutCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            textEditor.Cut();
+        }
+
+        private void CopyCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            textEditor.Copy();
+        }
+
+        private void PasteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            textEditor.Paste();
+        }
+
+        private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow window = new SettingsWindow();
             window.Show();

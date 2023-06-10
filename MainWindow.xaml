@@ -21,6 +21,17 @@
             Executed="SaveCommandBinding_Executed" />
         <CommandBinding Command="SaveAs" Executed="SaveAsCommandBinding_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="ExitCommandBinding_Executed" />
+        <CommandBinding
+            CanExecute="UndoCommandBinding_CanExecute"
+            Command="Undo"
+            Executed="UndoCommandBinding_Executed" />
+        <CommandBinding
+            CanExecute="RedoCommandBinding_CanExecute"
+            Command="Redo"
+            Executed="RedoCommandBinding_Executed" />
+        <CommandBinding Command="Cut" Executed="CutCommandBinding_Executed" />
+        <CommandBinding Command="Copy" Executed="CopyCommandBinding_Executed" />
+        <CommandBinding Command="Paste" Executed="PasteCommandBinding_Executed" />
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding
@@ -33,31 +44,27 @@
         <ToolBarPanel DockPanel.Dock="Top">
             <Menu DockPanel.Dock="Top">
                 <ui:MenuItem Header="_Файл">
-                    <ui:MenuItem
-                        Command="New"
-                        Header="_Создать"
-                        InputGestureText="Ctrl+N" />
-                    <ui:MenuItem
-                        Command="Open"
-                        Header="_Открыть"
-                        InputGestureText="Ctrl+O" />
+                    <ui:MenuItem Command="New" Header="_Создать" />
+                    <ui:MenuItem Command="Open" Header="_Открыть" />
                     <Separator />
-                    <ui:MenuItem
-                        Command="Save"
-                        Header="_Сохранить"
-                        InputGestureText="Ctrl+S" />
+                    <ui:MenuItem Command="Save" Header="_Сохранить" />
                     <ui:MenuItem
                         Command="SaveAs"
                         Header="_Сохранить как..."
                         InputGestureText="Ctrl+Shift+S" />
                     <Separator />
-                    <ui:MenuItem
-                        Command="local:CustomCommands.Exit"
-                        Header="_Выход"
-                        InputGestureText="Alt+F4" />
+                    <ui:MenuItem Command="local:CustomCommands.Exit" Header="_Выход" />
+                </ui:MenuItem>
+                <ui:MenuItem Header="_Правка">
+                    <ui:MenuItem Command="Undo" Header="_Отменить" />
+                    <ui:MenuItem Command="Redo" Header="_Вернуть" />
+                    <Separator />
+                    <ui:MenuItem Command="Cut" Header="_Вырезать" />
+                    <ui:MenuItem Command="Copy" Header="_Копировать" />
+                    <ui:MenuItem Command="Paste" Header="_Вставить" />
                 </ui:MenuItem>
                 <ui:MenuItem Header="_Вид">
-                    <ui:MenuItem Click="MenuItem_Click" Header="_Настроить" />
+                    <ui:MenuItem Click="SettingsMenuItem_Click" Header="_Настроить" />
                 </ui:MenuItem>
             </Menu>
             <Separator />

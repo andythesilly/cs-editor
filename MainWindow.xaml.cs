@@ -17,6 +17,17 @@ namespace Editor
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= MainWindow_Loaded;
+
+            // Attach mouse wheel CTRL-key zoom support
+            this.textEditor.PreviewMouseWheel += new MouseWheelEventHandler(
+                TextEditor_PreviewMouseWheel
+            );
         }
 
         private void setSyntax()
@@ -153,6 +164,29 @@ namespace Editor
         {
             SettingsWindow window = new SettingsWindow();
             window.Show();
+        }
+
+        private void TextEditor_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                int fontSize = App.UiSettings.FontSize + e.Delta / 50;
+                if (fontSize <= 6)
+                {
+                    fontSize = 6;
+                    textEditor.FontSize = 6;
+                } else if (fontSize >= 48)
+                {
+                    fontSize = 48;
+                    textEditor.FontSize = 48;
+                }
+                else
+                {
+                    textEditor.FontSize = App.UiSettings.FontSize;
+                }
+                App.UiSettings.FontSize = fontSize;
+                e.Handled = true;
+            }
         }
     }
 

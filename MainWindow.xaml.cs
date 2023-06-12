@@ -160,12 +160,6 @@ namespace Editor
             textEditor.Paste();
         }
 
-        private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow window = new SettingsWindow();
-            window.Show();
-        }
-
         private void TextEditor_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control)
@@ -188,6 +182,12 @@ namespace Editor
                 App.UiSettings.FontSize = fontSize;
                 e.Handled = true;
             }
+        }
+
+        private void PropCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SettingsWindow window = new SettingsWindow();
+            window.Show();
         }
     }
 

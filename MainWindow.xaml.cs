@@ -175,7 +175,8 @@ namespace Editor
                 {
                     fontSize = 6;
                     textEditor.FontSize = 6;
-                } else if (fontSize >= 48)
+                }
+                else if (fontSize >= 48)
                 {
                     fontSize = 48;
                     textEditor.FontSize = 48;

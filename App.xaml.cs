@@ -43,7 +43,7 @@ namespace Editor
 
             /* настраиваем внешний вид редактора */
             window.textEditor.FontSize = UiSettings.FontSize;
-            window.textEditor.FontFamily = new FontFamily( UiSettings.FontFamily );
+            window.textEditor.FontFamily = new FontFamily(UiSettings.FontFamily);
             window.textEditor.WordWrap = UiSettings.Wrap;
             window.textEditor.TextArea.TextView.Margin = new Thickness(5, 0, 0, 0);
 

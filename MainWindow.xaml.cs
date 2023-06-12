@@ -53,7 +53,7 @@ namespace Editor
             {
                 FileLocation = dialog.FileName;
                 setSyntax();
-                textEditor.Load(dialog.FileName);
+                textEditor.Load(FileLocation);
                 SavedString = textEditor.Text;
             }
         }
@@ -188,6 +188,19 @@ namespace Editor
         {
             SettingsWindow window = new SettingsWindow();
             window.Show();
+        }
+
+        private void UiWindow_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] args = (string[])e.Data.GetData(DataFormats.FileDrop);
+                
+                FileLocation = Path.GetFullPath(args[0]);
+                setSyntax();
+                textEditor.Load(FileLocation);
+                SavedString = textEditor.Text;
+            }
         }
     }
 

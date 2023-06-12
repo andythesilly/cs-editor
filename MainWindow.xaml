@@ -9,6 +9,7 @@
     Title="Редактор кода"
     Width="1200"
     Height="800"
+    Drop="UiWindow_Drop"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"

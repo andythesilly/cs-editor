@@ -33,6 +33,7 @@
             Title="Настройки"
             Grid.ColumnSpan="2"
             CanMaximize="False"
+            ShowMaximize="False"
             UseSnapLayout="True" />
         <TextBlock
             Grid.Row="1"

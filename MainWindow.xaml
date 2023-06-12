@@ -9,6 +9,9 @@
     Title="Редактор кода"
     Width="1200"
     Height="800"
+    ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -41,8 +44,16 @@
     </Window.InputBindings>
 
     <DockPanel>
+        <ui:TitleBar
+            Title="Редактор кода"
+            DockPanel.Dock="Top"
+            UseSnapLayout="True" />
         <ToolBarPanel DockPanel.Dock="Top">
-            <Menu DockPanel.Dock="Top">
+            <Menu
+                DockPanel.Dock="Top"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                FontWeight="Normal">
                 <ui:MenuItem Header="_Файл">
                     <ui:MenuItem Command="New" Header="_Создать" />
                     <ui:MenuItem Command="Open" Header="_Открыть" />
@@ -64,7 +75,10 @@
                     <ui:MenuItem Command="Paste" Header="_Вставить" />
                 </ui:MenuItem>
                 <ui:MenuItem Header="_Вид">
-                    <ui:MenuItem Click="SettingsMenuItem_Click" Header="_Настроить" />
+                    <ui:MenuItem
+                        ui:SymbolIcon="Settings16"
+                        Click="SettingsMenuItem_Click"
+                        Header="_Настроить" />
                 </ui:MenuItem>
             </Menu>
             <Separator />
@@ -74,6 +88,20 @@
             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
             Name="textEditor"
             Padding="10,10,10,10"
-            ShowLineNumbers="True" />
+            ShowLineNumbers="True">
+            <avalonEdit:TextEditor.ContextMenu>
+                <ContextMenu
+                    FontFamily="Segoe UI"
+                    FontSize="14"
+                    FontWeight="Normal">
+                    <ui:MenuItem Command="Undo" Header="_Отменить" />
+                    <ui:MenuItem Command="Redo" Header="_Вернуть" />
+                    <Separator />
+                    <ui:MenuItem Command="Cut" Header="_Вырезать" />
+                    <ui:MenuItem Command="Copy" Header="_Копировать" />
+                    <ui:MenuItem Command="Paste" Header="_Вставить" />
+                </ContextMenu>
+            </avalonEdit:TextEditor.ContextMenu>
+        </avalonEdit:TextEditor>
     </DockPanel>
 </ui:UiWindow>

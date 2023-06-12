@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Wpf.Ui.Controls;
 
 namespace Editor
 {
     /// <summary>
     /// Логика взаимодействия для SettingsWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class SettingsWindow : UiWindow
     {
         public SettingsWindow()
         {
@@ -18,7 +19,7 @@ namespace Editor
         }
 
         /* обрабатываем ввод размера шрифта в textBox */
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsValid(((System.Windows.Controls.TextBox)sender).Text + e.Text);
         }

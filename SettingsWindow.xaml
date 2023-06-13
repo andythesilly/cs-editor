@@ -47,7 +47,6 @@
             Grid.Column="1"
             Width="180"
             AcceptsReturn="False"
-            PreviewTextInput="TextBox_PreviewTextInput"
             Text="{Binding FontSize}" />
         <TextBlock
             Grid.Row="2"

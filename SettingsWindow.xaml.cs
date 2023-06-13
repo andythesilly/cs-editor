@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 
@@ -18,18 +18,6 @@ namespace Editor
             this.DataContext = App.UiSettings;
         }
 
-        /* обрабатываем ввод размера шрифта в textBox */
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !IsValid(((System.Windows.Controls.TextBox)sender).Text + e.Text);
-        }
-
-        public static bool IsValid(string str)
-        {
-            int i;
-            return int.TryParse(str, out i) && i >= 6 && i <= 48;
-        }
-
         public void FillFontComboBox(System.Windows.Controls.ComboBox comboBoxFonts)
         {
             foreach (FontFamily fontFamily in Fonts.SystemFontFamilies)
@@ -42,9 +30,20 @@ namespace Editor
 
         private void Button_Click(object sender, RoutedEventArgs e) // обрабатываем сохранение настроек
         {
-            ((MainWindow)App.Current.MainWindow).textEditor.FontSize = App.UiSettings.FontSize;
-            ((MainWindow)App.Current.MainWindow).textEditor.FontFamily = new FontFamily(App.UiSettings.FontFamily);
-            ((MainWindow)App.Current.MainWindow).textEditor.WordWrap = App.UiSettings.Wrap;
+            if (App.UiSettings.FontSize <= 6)
+            {
+                FontSizeTextBox.Text = "6";
+            } 
+
+            if (App.UiSettings.FontSize >= 48)
+            {
+                FontSizeTextBox.Text = "48";
+            }
+
+            App.UiSettings.FontSize = Convert.ToInt32(FontSizeTextBox.Text);
+            ((MainWindow)Application.Current.MainWindow).textEditor.FontSize = App.UiSettings.FontSize;
+            ((MainWindow)Application.Current.MainWindow).textEditor.FontFamily = new FontFamily(App.UiSettings.FontFamily);
+            ((MainWindow)Application.Current.MainWindow).textEditor.WordWrap = App.UiSettings.Wrap;
             App.Config.Save();
         }
     }

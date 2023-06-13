@@ -168,18 +168,15 @@ namespace Editor
                 if (fontSize <= 6)
                 {
                     fontSize = 6;
-                    textEditor.FontSize = 6;
                 }
-                else if (fontSize >= 48)
+                
+                if (fontSize >= 48)
                 {
                     fontSize = 48;
-                    textEditor.FontSize = 48;
                 }
-                else
-                {
-                    textEditor.FontSize = App.UiSettings.FontSize;
-                }
+
                 App.UiSettings.FontSize = fontSize;
+                textEditor.FontSize = fontSize;
                 e.Handled = true;
             }
         }
